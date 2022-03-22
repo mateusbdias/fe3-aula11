@@ -5,9 +5,12 @@ function App() {
   return (
     <Formik
       // Valores iniciais do form 
-      initialValues={{ email: "" }}
+      initialValues={{ nome: "", telefone: "", email: "" }}
       // Função de submissão do form
-      onSubmit={(values) => alert(values.email)}
+      onSubmit={(event, values) => {
+        event.preventDefault();
+        alert("Nome: " + values.nome + "\nTelefone: " + values.telefone + "\nEmail: " + values.email)}
+      } 
       // Validação de campos
       validate={(values) => {
         const errors = {};
