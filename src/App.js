@@ -1,6 +1,5 @@
-import { useState } from "react";
-
 import { Formik } from "formik";
+import { ReactJsAlert } from "reactjs-alert";
 
 function App() {
   return (
@@ -13,6 +12,10 @@ function App() {
       validate={(values) => {
         const errors = {};
 
+        if(values.telefone && !/^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$/i.test(values.telefone)){
+          errors.telefone = "Telefone inválido";
+        }
+
         if(!values.email){
           errors.email = "Campo obrigatório";
         } else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)){
@@ -24,12 +27,29 @@ function App() {
     >
       {({ handleSubmit, handleChange, errors }) => (
         <form onSubmit={handleSubmit}>
+          <label>Nome: </label>
           <input 
-            name="email" 
-            placeholder="Email"
+            name="nome"
+            placeholder="Insira seu nome"
             onChange={handleChange}
           />
-          {errors.email && <span>{errors.email}</span>}
+          <br />
+          <label>Telefone: </label>
+          <input 
+            name="telefone"
+            placeholder="Insira seu telefone"
+            onChange={handleChange}
+          />
+          {errors.telefone && <span> {errors.telefone}</span>}
+          <br />
+          <label>Email: </label>
+          <input 
+            name="email" 
+            placeholder="Insira seu email"
+            onChange={handleChange}
+          />
+          {errors.email && <span> {errors.email}</span>}
+          <br />
           <button type="submit">Submit</button>
         </form>
       )}
