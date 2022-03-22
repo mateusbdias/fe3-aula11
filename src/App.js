@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import { ReactJsAlert } from "reactjs-alert";
+import swal from '@sweetalert/with-react';
 
 function App() {
   return (
@@ -7,10 +7,20 @@ function App() {
       // Valores iniciais do form 
       initialValues={{ nome: "", telefone: "", email: "" }}
       // Função de submissão do form
-      onSubmit={(event, values) => {
-        event.preventDefault();
-        alert("Nome: " + values.nome + "\nTelefone: " + values.telefone + "\nEmail: " + values.email)}
-      } 
+      onSubmit={
+        (values) => {
+          swal({
+            title: "Dados enviados com sucesso!",
+            content: <div>
+                <p>Nome: {values.nome}</p>
+                <p>Telefone: {values.telefone}</p>
+                <p>Email: {values.email}</p>
+              </div>,
+            icon: "success",
+            button: "Refazer"
+          })
+        }
+      }
       // Validação de campos
       validate={(values) => {
         const errors = {};
