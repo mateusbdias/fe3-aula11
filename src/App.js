@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
 function App() {
+
+  const [nome, setNome] = useState("");
+  const [curso, setCurso] = useState("back-end");
+
+  function submitForm(event) {
+    event.preventDefault();
+    console.log(nome + " - " + curso);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form onSubmit={submitForm}>
+      <h1>{nome} - {curso}</h1>
+      <input 
+        placeholder="Nome" 
+        onChange={(event) => setNome(event.target.value)} 
+      />
+      <select 
+        onChange={(event) => setCurso(event.target.value)}
+        defaultValue={curso}
+      >
+        <option></option>
+        <option value="back-end">Back End</option>
+        <option value="devops">DevOps</option>
+        <option value="front-end">Front End</option>
+      </select>
+      <input type="submit" />
+    </form>
   );
 }
 
